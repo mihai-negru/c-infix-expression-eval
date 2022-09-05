@@ -68,7 +68,7 @@ long long int evaluate_int_postfix(char *postfix_str) {
 
                 switch (token[0]) {
                     case '^':
-                        operand = (long long int)pow((double)soperand, (double)foperand);
+                        operand = (long long int)pow(1.0 * soperand, 1.0 * foperand);
                         break;
                     case '*':
                         operand = (soperand * foperand);
@@ -194,11 +194,8 @@ long double evaluate_double_postfix(char *postfix_str) {
                         operand = -operand;
                         break;
                     case 'N':
-                        fprintf(stderr, "Invalid operator for double : <~>\n");
-
-                        free_stack(eval_stack);
-
-                        return LDBL_MAX;
+                        operand = 1.0L * (~(long long int)operand);
+                        break;
                 }
             } else {
                 long double foperand = *(const long double *)stack_top(eval_stack);
@@ -223,7 +220,7 @@ long double evaluate_double_postfix(char *postfix_str) {
 
                 switch (token[0]) {
                     case '^':
-                        operand = (long double)pow((double)soperand, (double)foperand);
+                        operand = 1.0L * pow((double)soperand, (double)foperand);
                         break;
                     case '*':
                         operand = (soperand * foperand);
@@ -231,17 +228,30 @@ long double evaluate_double_postfix(char *postfix_str) {
                     case '/':
                         operand = (soperand / foperand);
                         break;
+                    case '%':
+                        operand = 1.0L * ((long long int)soperand % (long long int)foperand);
+                        break;
                     case '+':
                         operand = (soperand + foperand);
                         break;
                     case '-':
                         operand = (soperand - foperand);
                         break;
-                    default:
-                        fprintf(stderr, "Invalid operator for double : <%c>\n", token[0]);
-                        free_stack(eval_stack);
-                        
-                        return LDBL_MAX;
+                    case '<':
+                        operand = 1.0L * ((long long int)soperand << (long long int)foperand);
+                        break;
+                    case '>':
+                        operand = 1.0 * ((long long int)soperand >> (long long int)foperand);
+                        break;
+                    case '&':
+                        operand = 1.0L * ((long long int)soperand & (long long int)foperand);
+                        break;
+                    case 'v':
+                        operand = 1.0L * ((long long int)soperand ^ (long long int)foperand);
+                        break;
+                    case '|':
+                        operand = 1.0L * ((long long int)soperand | (long long int)foperand);
+                        break;
                 }
             }
         } else {
