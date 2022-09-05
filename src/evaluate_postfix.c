@@ -1,5 +1,25 @@
+/**
+ * @file evaluate_postfix.c
+ * @author Matrix22 (determinant289@gmail.com)
+ * @brief Source file containing two functions to evaluate a postfix expression.
+ * One function is returning an integer result and is performing JUST integer operations,
+ * another function is performing mixted operations (floating point and integer) and it is
+ * returning an floating point number.
+ * @version 0.1
+ * @date 2022-09-05
+ * 
+ */
+
 #include "./include/expression_utils.h"
 
+/**
+ * @brief Function to evaluate an integer postfix expression and
+ * to return an integer(long long int) number.
+ * 
+ * @param postfix_str pointer to postfix string literal expression
+ * @return long long int evaluation of the postfix expresion or LLONG_MAX
+ * if expression is not valid or stack opeartions fails
+ */
 long long int evaluate_int_postfix(char *postfix_str) {
     if (postfix_str == NULL) {
         return LLONG_MAX;
@@ -24,6 +44,14 @@ long long int evaluate_int_postfix(char *postfix_str) {
             operand = LLONG_MAX;
 
             if (op_precedence == 7) {
+                if (is_stack_empty(eval_stack) == 1) {
+                    fprintf(stderr, "Invalid postfix expression\n");
+
+                    free_stack(eval_stack);
+
+                    return LLONG_MAX;
+                }
+
                 operand  = *(const long long int *)stack_top(eval_stack);
 
                 err = stack_pop(eval_stack);
@@ -44,13 +72,33 @@ long long int evaluate_int_postfix(char *postfix_str) {
                     case 'N':
                         operand = ~operand;
                         break;
+                    default:
+                        fprintf(stderr, "Error: Invalid operator %c\n", token[0]);
+                        free_stack(eval_stack);
+                        return LLONG_MAX;
                 }
             } else {
+                if (is_stack_empty(eval_stack) == 1) {
+                    fprintf(stderr, "Invalid postfix expression\n");
+
+                    free_stack(eval_stack);
+
+                    return LLONG_MAX;
+                }
+
                 long long int foperand = *(const long long int *)stack_top(eval_stack);
 
                 err = stack_pop(eval_stack);
                 
                 if (err != SCL_OK) {
+                    free_stack(eval_stack);
+
+                    return LLONG_MAX;
+                }
+
+                if (is_stack_empty(eval_stack) == 1) {
+                    fprintf(stderr, "Invalid postfix expression\n");
+
                     free_stack(eval_stack);
 
                     return LLONG_MAX;
@@ -100,6 +148,10 @@ long long int evaluate_int_postfix(char *postfix_str) {
                     case '|':
                         operand = (soperand | foperand);
                         break;
+                    default:
+                        fprintf(stderr, "Error: Invalid operator %c\n", token[0]);
+                        free_stack(eval_stack);
+                        return LLONG_MAX;
                 }
             }
         } else {
@@ -125,6 +177,14 @@ long long int evaluate_int_postfix(char *postfix_str) {
         token = __strtok_r(NULL, WORD_DELIMITERS, &save_token);
     }
 
+    if (is_stack_empty(eval_stack) == 1) {
+        fprintf(stderr, "Invalid postfix expression\n");
+
+        free_stack(eval_stack);
+
+        return LLONG_MAX;
+    }
+
     long long int result = *(const long long int *)stack_top(eval_stack);
 
     err = stack_pop(eval_stack);
@@ -135,7 +195,7 @@ long long int evaluate_int_postfix(char *postfix_str) {
         return LLONG_MAX;
     }
 
-    if (!is_stack_empty(eval_stack)) {
+    if (is_stack_empty(eval_stack) == 0) {
         fprintf(stderr, "Error: Invalid postfix expression\n");
 
         free_stack(eval_stack);
@@ -148,10 +208,14 @@ long long int evaluate_int_postfix(char *postfix_str) {
     return result;
 }
 
-
-
-
-
+/**
+ * @brief Function to evaluate a mixted postfix expression and
+ * to return an dloating point(long double) number.
+ * 
+ * @param postfix_str pointer to postfix string literal expression
+ * @return long double evaluation of the postfix expresion or LDBL_MAX
+ * if expression is not valid or stack opeartions fails
+ */
 long double evaluate_double_postfix(char *postfix_str) {
     if (postfix_str == NULL) {
         return LDBL_MAX;
@@ -176,6 +240,14 @@ long double evaluate_double_postfix(char *postfix_str) {
             operand = LDBL_MAX;
 
             if (op_precedence == 7) {
+                if (is_stack_empty(eval_stack) == 1) {
+                    fprintf(stderr, "Invalid postfix expression\n");
+
+                    free_stack(eval_stack);
+
+                    return LDBL_MAX;
+                }
+
                 operand  = *(const long double *)stack_top(eval_stack);
 
                 err = stack_pop(eval_stack);
@@ -196,13 +268,33 @@ long double evaluate_double_postfix(char *postfix_str) {
                     case 'N':
                         operand = 1.0L * (~(long long int)operand);
                         break;
+                    default:
+                        fprintf(stderr, "Error: Invalid operator %c\n", token[0]);
+                        free_stack(eval_stack);
+                        return LDBL_MAX;
                 }
             } else {
+                if (is_stack_empty(eval_stack) == 1) {
+                    fprintf(stderr, "Invalid postfix expression\n");
+
+                    free_stack(eval_stack);
+
+                    return LDBL_MAX;
+                }
+
                 long double foperand = *(const long double *)stack_top(eval_stack);
 
                 err = stack_pop(eval_stack);
                 
                 if (err != SCL_OK) {
+                    free_stack(eval_stack);
+
+                    return LDBL_MAX;
+                }
+
+                if (is_stack_empty(eval_stack) == 1) {
+                    fprintf(stderr, "Invalid postfix expression\n");
+
                     free_stack(eval_stack);
 
                     return LDBL_MAX;
@@ -252,6 +344,10 @@ long double evaluate_double_postfix(char *postfix_str) {
                     case '|':
                         operand = 1.0L * ((long long int)soperand | (long long int)foperand);
                         break;
+                    default:
+                        fprintf(stderr, "Error: Invalid operator %c\n", token[0]);
+                        free_stack(eval_stack);
+                        return LDBL_MAX;
                 }
             }
         } else {
@@ -277,6 +373,14 @@ long double evaluate_double_postfix(char *postfix_str) {
         token = __strtok_r(NULL, WORD_DELIMITERS, &save_token);
     }
 
+    if (is_stack_empty(eval_stack) == 1) {
+        fprintf(stderr, "Invalid postfix expression\n");
+
+        free_stack(eval_stack);
+
+        return LDBL_MAX;
+    }
+    
     long double result = *(const long double *)stack_top(eval_stack);
 
     err = stack_pop(eval_stack);
@@ -287,7 +391,7 @@ long double evaluate_double_postfix(char *postfix_str) {
         return LDBL_MAX;
     }
 
-    if (!is_stack_empty(eval_stack)) {
+    if (is_stack_empty(eval_stack) == 0) {
         fprintf(stderr, "Error: Invalid postfix expression\n");
 
         free_stack(eval_stack);

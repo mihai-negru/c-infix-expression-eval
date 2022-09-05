@@ -13,7 +13,9 @@
 
 uint8_t operator_precedence(char operator);
 uint8_t is_valid_operand(const char * const operand);
+
 char* infix_to_postfix(char *infix_str);
+
 long long int evaluate_int_postfix(char *postfix_str);
 long double evaluate_double_postfix(char *postfix_str);
 

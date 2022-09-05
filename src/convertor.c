@@ -1,5 +1,24 @@
+/**
+ * @file convertor.c
+ * @author Matrix22 (determinant289@gmail.com)
+ * @brief Application source file. The program will read from command line
+ * a string expression representing the infix string and a number to calculate the result
+ * <1 - for integer result> and <2 - for floating point result>. Program will convert the infix
+ * expression into a postfix expression and will evaluate the expresion returning a number.
+ * @version 0.1
+ * @date 2022-09-05
+ * 
+ */
+
 #include "./include/expression_utils.h"
 
+/**
+ * @brief Application to evaluate an infix expression using stacks
+ * 
+ * @param argc number of command line params. Must be 3
+ * @param argv executable name, infix expression string, control number 1/2
+ * @return int EXIT_SUCCESS if every thing calculated correctly, EXIT_FAILURE otherwise
+ */
 int main(int argc, char *argv[]) {
     if (argc != 3) {
         fprintf(stderr, "Usage: %s <Wrong commands number>\n", argv[0]);
@@ -63,5 +82,5 @@ int main(int argc, char *argv[]) {
 
     free(postfix_str);
 
-    return 0;
+    return EXIT_SUCCESS;
 }  

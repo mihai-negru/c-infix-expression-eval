@@ -1,5 +1,22 @@
+/**
+ * @file operations_check.c
+ * @author Matrix22 (determinant289@gmail.com)
+ * @brief Source file to check if an operator is valid to perform an operation and
+ * to check the precedence of an opeartor from the infix/postfix expression.
+ * @version 0.1
+ * @date 2022-09-05
+ * 
+ */
+
 #include "./include/expression_utils.h"
 
+/**
+ * @brief Function to get the precedence of an operator from the given expression.
+ * 
+ * @param operator char rpresentation of an operator to check its precedence
+ * @return uint8_t a number within [1, 8] range. Greater the number, greater the precedence
+ * if returned number is 0 then input char doe not represent an operator
+ */
 uint8_t operator_precedence(char operator) {
     switch (operator) {
         case '^':               /* Power Symbol */
@@ -32,6 +49,13 @@ uint8_t operator_precedence(char operator) {
     return 0;
 }
 
+/**
+ * @brief Function to check if a char expresion represents an integer
+ * or a double number expression.
+ * 
+ * @param operand char expression representing a number
+ * @return uint8_t 1 if expression is a valid number or 0 otherwise
+ */
 uint8_t is_valid_operand(const char * const operand) {
     if (operand == NULL) {
         return 0;
