@@ -3,6 +3,9 @@
 
 #include <scl_stack.h>
 #include <scl_func_types.h>
+#include <limits.h>
+#include <float.h>
+#include <math.h>
 
 #define WORD_DELIMITERS "\n ,;:`'\""
 #define MAX_NUMBER_LENGTH 20
