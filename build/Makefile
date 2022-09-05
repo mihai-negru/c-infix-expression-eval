@@ -27,6 +27,9 @@ OFILES += operations_check.o \
 # c-language-data-structures dynamically linked library
 DYNAMIC_LIB += -ldstruc
 
+# standard math.h library
+MATH_LIB += -lm
+
 # Input file to extract line commands
 INFIX_EXPR_FILE += infix.txt
 NUMBER_TYPE_FILE += numtype.txt
@@ -47,7 +50,7 @@ build: $(FILES)
 
 # Link the program
 link: $(OFILES)
-	@gcc $(OFILES) $(DYNAMIC_LIB) -o $(EXEC)
+	@gcc $(OFILES) $(DYNAMIC_LIB) $(MATH_LIB) -o $(EXEC)
 
 # Run the program
 run: $(INFIX_EXPR_FILE) $(NUMBER_TYPE_FILE)
