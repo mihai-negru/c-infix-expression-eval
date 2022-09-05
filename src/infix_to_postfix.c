@@ -29,7 +29,7 @@ char* infix_to_postfix(char *infix_str) {
         return NULL;
     }
 
-    char *postfix_str = malloc(strlen(infix_str) + UNIT_LENGTH);
+    char *postfix_str = malloc(strlen(infix_str) + 2 * UNIT_LENGTH);
 
     if (postfix_str == NULL) {
         return NULL;
