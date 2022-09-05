@@ -38,7 +38,7 @@ uint8_t is_valid_operand(const char * const operand) {
     }
 
     for (size_t iter_i = 0; operand[iter_i] != '\0'; ++iter_i) {
-        if (operand[iter_i] < '0' || operand[iter_i] > '9') {
+        if (((operand[iter_i] < '0') || (operand[iter_i] > '9')) && (operand[iter_i] != '.')) {
             return 0;
         }
     }
