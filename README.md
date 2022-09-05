@@ -43,7 +43,7 @@ The accepted operators are:
 * **>** - bitwise right shift (for integer)
 * **&** - bitwise AND (for integer)
 * **v** - bitwise XOR (for integer)
-* **|** = bitwise OR (for integer)
+* **|** - bitwise OR (for integer)
 
 <a name="build-description"></a>
 
