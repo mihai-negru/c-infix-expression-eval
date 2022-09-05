@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
         if (result == LDBL_MAX) {
             printf("Double Postfix Evaluation: <Error>\n\n");    
         } else {
-            printf("Double Postfix Evaluation: %.50Lf\n\n", result);
+            printf("Double Postfix Evaluation: %.100Lg\n\n", result);
         }
     }
 
