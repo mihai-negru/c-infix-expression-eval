@@ -122,9 +122,19 @@ long long int evaluate_int_postfix(char *postfix_str) {
                         operand = (soperand * foperand);
                         break;
                     case '/':
+                        if (foperand == 0) {
+                            fprintf(stderr, "Found division by 0\n");
+                            free_stack(eval_stack);
+                            return LLONG_MAX;
+                        }
                         operand = (soperand / foperand);
                         break;
                     case '%':
+                        if (foperand == 0) {
+                            fprintf(stderr, "Found modulo by 0\n");
+                            free_stack(eval_stack);
+                            return LLONG_MAX;
+                        }
                         operand = (soperand % foperand);
                         break;
                     case '+':
@@ -157,7 +167,7 @@ long long int evaluate_int_postfix(char *postfix_str) {
         } else {
             operand = strtoll(token, NULL, 10);
 
-            if ((operand == LLONG_MAX) || (operand == LLONG_MIN)) {
+            if (((operand == LLONG_MAX) || (operand == LLONG_MIN)) && (operand != 0)) {
                 fprintf(stderr, "Error: Invalid operand \"%s\"\n", token);
 
                 free_stack(eval_stack);
@@ -318,9 +328,19 @@ long double evaluate_double_postfix(char *postfix_str) {
                         operand = (soperand * foperand);
                         break;
                     case '/':
+                        if (foperand == 0) {
+                            fprintf(stderr, "Found division by 0.0\n");
+                            free_stack(eval_stack);
+                            return LDBL_MAX;
+                        }
                         operand = (soperand / foperand);
                         break;
                     case '%':
+                        if (foperand == 0) {
+                            fprintf(stderr, "Found modulo by 0.0\n");
+                            free_stack(eval_stack);
+                            return LDBL_MAX;
+                        }
                         operand = 1.0L * ((long long int)soperand % (long long int)foperand);
                         break;
                     case '+':
@@ -353,7 +373,7 @@ long double evaluate_double_postfix(char *postfix_str) {
         } else {
             operand = strtold(token, NULL);
 
-            if ((operand == LDBL_MAX) || (operand == LDBL_MIN)) {
+            if (((operand == LDBL_MAX) || (operand == LDBL_MIN)) && (operand != 0)) {
                 fprintf(stderr, "Error: Invalid operand \"%s\"\n", token);
 
                 free_stack(eval_stack);
