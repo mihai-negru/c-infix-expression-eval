@@ -4,7 +4,7 @@
 #include <scl_stack.h>
 #include <scl_func_types.h>
 
-#define WORD_DELIMITERS "\n .,;:`'\""
+#define WORD_DELIMITERS "\n ,;:`'\""
 #define MAX_NUMBER_LENGTH 20
 #define UNIT_LENGTH 1
 
