@@ -33,7 +33,7 @@ The accepted operators are:
 * **^** - power sign
 * **P** - unary plus operator
 * **M** - unary minus operator
-* **N** - unary bitwise negation operator (for integer)
+* **~** - unary bitwise negation operator (for integer)
 * __*__ - multiplication sign
 * **/** - division symbol (program check for division by 0)
 * **%** - modulo symbol (for integer) (check for modulo 0)
@@ -96,7 +96,7 @@ The project is a **cli** application so you should provide command line params:
 
 >**NOTE:** A valid infix expression must containg just operators specified ffrom the **Getting Started** section, integer or floating point numbers and JUST rounded paranthesis **()**.
 The following members of a valid exoressions must be separated by the separators described int the **Getting Started** section.
-A mini example would be : **( 90 + M 50) + 12 * 43 * M 32 + 12 * 43 * ( M 32 ) - 4 ^ 4 + M 4 ^ 4**.
+A mini example would be : **( 90 + M 50) + 12 * 43 * M 32 + 12 * 43 * ( M 32 ) - 4 ^ 4 + ~ ( M 4 ^ 4 )**.
 
 * Second param must be the mode selector:
     * **1** - integer mode you are allowed to pass just integer numbers for the infix expression

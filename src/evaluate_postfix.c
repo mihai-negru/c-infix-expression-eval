@@ -69,7 +69,7 @@ long long int evaluate_int_postfix(char *postfix_str) {
                     case 'M':
                         operand = -operand;
                         break;
-                    case 'N':
+                    case '~':
                         operand = ~operand;
                         break;
                     default:
@@ -275,7 +275,7 @@ long double evaluate_double_postfix(char *postfix_str) {
                     case 'M':
                         operand = -operand;
                         break;
-                    case 'N':
+                    case '~':
                         operand = 1.0L * (~(long long int)operand);
                         break;
                     default:

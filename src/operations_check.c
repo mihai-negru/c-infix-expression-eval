@@ -23,7 +23,7 @@ uint8_t operator_precedence(char operator) {
             return 8;
         case 'P':               /* Unary Plus Symbol */
         case 'M':               /* Unary Minus Symbol */
-        case 'N':               /* Unary Negation Symbol */
+        case '~':               /* Unary Negation Symbol */
             return 7;
         case '*':               /* Multiplication Symbol */
         case '/':               /* Division Symbol */
