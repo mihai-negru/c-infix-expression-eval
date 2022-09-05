@@ -44,9 +44,21 @@ int main(int argc, char *argv[]) {
     }
 
     if (numbers_type == 1) {
-        printf("Integer Postfix Evaluation: %lld\n\n", evaluate_int_postfix(postfix_str));
+        long long int result = evaluate_int_postfix(postfix_str);
+
+        if (result == LLONG_MAX) {
+            printf("Integer Postfix Evaluation: <Error>\n\n");    
+        } else {
+            printf("Integer Postfix Evaluation: %lld\n\n", result);
+        }
     } else {
-        printf("Double Postfix Evaluation: %Lf\n\n", evaluate_double_postfix(postfix_str));
+        long double result = evaluate_double_postfix(postfix_str);
+
+        if (result == LDBL_MAX) {
+            printf("Double Postfix Evaluation: <Error>\n\n");    
+        } else {
+            printf("Double Postfix Evaluation: %.50Lf\n\n", result);
+        }
     }
 
     free(postfix_str);
